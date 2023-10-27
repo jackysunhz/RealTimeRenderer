@@ -5,13 +5,13 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "HelloTriangleProgram.hpp"
+#include "test_app.hpp"
 
 using namespace std;
 
 int main()
 {
-	HelloTriangleApplication app;
+	vkrtr::TestApp app;
     try {
         app.run();
     } catch (const std::exception& e) {

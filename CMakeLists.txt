@@ -61,7 +61,7 @@ if (WIN32)
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/external
     ${Vulkan_INCLUDE_DIRS}
-    ${TINYOBJ_PATH}
+    #${TINYOBJ_PATH}
     ${GLFW_INCLUDE_DIRS}
     ${GLM_PATH}
     )
