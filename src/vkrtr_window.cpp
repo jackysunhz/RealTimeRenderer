@@ -1,4 +1,5 @@
 #include "vkrtr_window.hpp"
+#include <stdexcept>
 
 namespace vkrtr {
 
@@ -11,7 +12,15 @@ VkrtrWindow::~VkrtrWindow() {
     glfwTerminate();
 }
 
-void VkrtrWindow::initWindow() {
+void VkrtrWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR *surface)
+{
+    if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create window surface");
+    }
+}
+
+void VkrtrWindow::initWindow()
+{
     glfwInit();
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -19,5 +28,4 @@ void VkrtrWindow::initWindow() {
 
     window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
 }
-
 }
