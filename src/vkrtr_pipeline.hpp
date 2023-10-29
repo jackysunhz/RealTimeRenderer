@@ -30,6 +30,8 @@ public:
     VkrtrPipeline(const VkrtrPipeline&) = delete;
     void operator=(const VkrtrPipeline&) = delete;
 
+    void bind(VkCommandBuffer commandBuffer);
+
     static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
 private:
 
