@@ -38,3 +38,4 @@ out/
 CMakeSettings.json
 
 .vscode/
+compile.bat

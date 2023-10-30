@@ -6,6 +6,7 @@
 namespace vkrtr {
 TestApp::TestApp()
 {
+    loadModels();
     createPipelineLayout();
     createPipeline();
     createCommandBuffers();
@@ -24,6 +25,17 @@ void TestApp::run()
     }
 
     vkDeviceWaitIdle(vkrtrDevice.device());
+}
+
+void TestApp::loadModels()
+{
+    std::vector<VkrtrModel::Vertex> vertices{
+        {{0.0f, -0.5f}},
+        {{0.5f, 0.5f}},
+        {{-0.5f, 0.5f}}
+    };
+
+    vkrtrModel = std::make_unique<VkrtrModel>(vkrtrDevice, vertices);
 }
 
 void TestApp::createPipelineLayout()
@@ -94,7 +106,8 @@ void TestApp::createCommandBuffers(){
 
         vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
         vkrtrPipeline->bind(commandBuffers[i]);
-        vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
+        vkrtrModel->bind(commandBuffers[i]);
+        vkrtrModel->draw(commandBuffers[i]);
 
         vkCmdEndRenderPass(commandBuffers[i]);
         if(vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS){
