@@ -56,11 +56,16 @@ std::vector<VkVertexInputBindingDescription> VkrtrModel::Vertex::getBindingDescr
 
 std::vector<VkVertexInputAttributeDescription> VkrtrModel::Vertex::getAttributeDescriptions()
 {
-    std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
+    std::vector<VkVertexInputAttributeDescription> attributeDescriptions(2);
     attributeDescriptions[0].binding = 0;
     attributeDescriptions[0].location = 0;
     attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
-    attributeDescriptions[0].offset = 0;
+    attributeDescriptions[0].offset = offsetof(Vertex, position);//this is the offset of the position member in the Vertex struct
+
+    attributeDescriptions[1].binding = 0;
+    attributeDescriptions[1].location = 1;//this is the layout location in the vetex shader
+    attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[1].offset = offsetof(Vertex, color);//this is the offset of the color member in the Vertex struct
 
     return attributeDescriptions;   
 }

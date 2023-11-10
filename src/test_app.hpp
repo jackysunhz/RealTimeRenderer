@@ -26,7 +26,7 @@ private:
     void loadModels();
     VkrtrWindow vkrtrWindow{WIDTH, HEIGHT, "TestApp"};
     VkrtrDevice vkrtrDevice{vkrtrWindow};
-    VkrtrSwapChain vkrtrSwapChain{vkrtrDevice, vkrtrWindow.getExtent()};
+    std::unique_ptr<VkrtrSwapChain> vkrtrSwapChain;
     std::unique_ptr<VkrtrPipeline> vkrtrPipeline;
     VkPipelineLayout pipelineLayout;
     std::vector<VkCommandBuffer> commandBuffers;
@@ -36,6 +36,8 @@ private:
     void createPipeline();
     void createCommandBuffers();
     void drawFrame();
+    void recreateSwapChain();
+    void recordCommandBuffer(int imageIndex);
 };
 
 }

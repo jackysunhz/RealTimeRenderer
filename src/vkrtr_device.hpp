@@ -35,7 +35,7 @@ class VkrtrDevice {
 
   // Not copyable or movable
   VkrtrDevice(const VkrtrDevice &) = delete;
-  void operator=(const VkrtrDevice &) = delete;
+  VkrtrDevice &operator=(const VkrtrDevice &) = delete;
   VkrtrDevice(VkrtrDevice &&) = delete;
   VkrtrDevice &operator=(VkrtrDevice &&) = delete;
 

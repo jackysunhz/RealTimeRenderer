@@ -28,7 +28,7 @@ public:
 
     // Not copyable or movable
     VkrtrPipeline(const VkrtrPipeline&) = delete;
-    void operator=(const VkrtrPipeline&) = delete;
+    VkrtrPipeline& operator=(const VkrtrPipeline&) = delete;
 
     void bind(VkCommandBuffer commandBuffer);
 

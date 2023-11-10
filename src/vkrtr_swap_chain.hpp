@@ -19,7 +19,7 @@ class VkrtrSwapChain {
   ~VkrtrSwapChain();
 
   VkrtrSwapChain(const VkrtrSwapChain &) = delete;
-  void operator=(const VkrtrSwapChain &) = delete;
+  VkrtrSwapChain& operator=(const VkrtrSwapChain &) = delete;
 
   VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
   VkRenderPass getRenderPass() { return renderPass; }
