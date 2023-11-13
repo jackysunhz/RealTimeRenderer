@@ -12,7 +12,22 @@
 namespace vkrtr {
 
 VkrtrSwapChain::VkrtrSwapChain(VkrtrDevice &deviceRef, VkExtent2D extent)
-    : device{deviceRef}, windowExtent{extent} {
+    : device{deviceRef}, windowExtent{extent} 
+{
+  init();
+}
+
+VkrtrSwapChain::VkrtrSwapChain(VkrtrDevice &deviceRef, VkExtent2D windowExtent, std::shared_ptr<VkrtrSwapChain> previous)
+    : device{deviceRef}, windowExtent{windowExtent}, oldSwapChain{previous}
+{
+  init();
+
+  // clean up old swap chain
+  oldSwapChain = nullptr;
+}
+
+void VkrtrSwapChain::init()
+{
   createSwapChain();
   createImageViews();
   createRenderPass();
@@ -119,7 +134,8 @@ VkResult VkrtrSwapChain::submitCommandBuffers(
   return result;
 }
 
-void VkrtrSwapChain::createSwapChain() {
+void VkrtrSwapChain::createSwapChain()
+{
   SwapChainSupportDetails swapChainSupport = device.getSwapChainSupport();
 
   VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
@@ -162,7 +178,7 @@ void VkrtrSwapChain::createSwapChain() {
   createInfo.presentMode = presentMode;
   createInfo.clipped = VK_TRUE;
 
-  createInfo.oldSwapchain = VK_NULL_HANDLE;
+  createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
 
   if (vkCreateSwapchainKHR(device.device(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
     throw std::runtime_error("failed to create swap chain!");
@@ -373,12 +389,12 @@ VkSurfaceFormatKHR VkrtrSwapChain::chooseSwapSurfaceFormat(
 
 VkPresentModeKHR VkrtrSwapChain::chooseSwapPresentMode(
     const std::vector<VkPresentModeKHR> &availablePresentModes) {
-  // for (const auto &availablePresentMode : availablePresentModes) {
-  //   if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
-  //     std::cout << "Present mode: Mailbox" << std::endl;
-  //     return availablePresentMode;
-  //   }
-  // }
+  for (const auto &availablePresentMode : availablePresentModes) {
+    if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+      std::cout << "Present mode: Mailbox" << std::endl;
+      return availablePresentMode;
+    }
+  }
 
   // for (const auto &availablePresentMode : availablePresentModes) {
   //   if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR) {

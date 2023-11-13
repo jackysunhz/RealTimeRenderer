@@ -6,14 +6,14 @@ cmake_minimum_required (VERSION 3.12)
 set(PROJECT_NAME VKRTR)
 
 # Home PC
-#set(GLFW_PATH D:/CGStudy/Libraries/glfw-3.3.8.bin.WIN64)
-#set(GLM_PATH D:/CGStudy/Libraries/glm)
-#set(VULKAN_SDK_PATH  D:/VulkanSDK/1.3.250.1)
+set(GLFW_PATH D:/CGStudy/Libraries/glfw-3.3.8.bin.WIN64)
+set(GLM_PATH D:/CGStudy/Libraries/glm)
+set(VULKAN_SDK_PATH  D:/VulkanSDK/1.3.250.1)
 
 # ETC PC
-set(GLFW_PATH C:/glfw-3.3.8.bin.WIN64)
-set(GLM_PATH C:/glm)
-set(VULKAN_SDK_PATH  C:/VulkanSDK/1.3.268.0)
+#set(GLFW_PATH C:/glfw-3.3.8.bin.WIN64)
+#set(GLM_PATH C:/glm)
+#set(VULKAN_SDK_PATH  C:/VulkanSDK/1.3.268.0)
 
 # 1. Set VULKAN_SDK_PATH in .env.cmake to target specific vulkan version
 if (DEFINED VULKAN_SDK_PATH)

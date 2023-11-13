@@ -39,3 +39,4 @@ CMakeSettings.json
 
 .vscode/
 compile.bat
+compile_shaders.bat
